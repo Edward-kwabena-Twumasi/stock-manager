@@ -182,6 +182,8 @@ z-index: 6;
   flex-direction: column;
   border-radius: 5px;
   padding: 5px;
+  transition: 600ms ease-in-out;
+  height: auto;
 }
 .textfield{
   border: 2px solid green;
@@ -193,7 +195,7 @@ z-index: 6;
   height: 60px;
   border-radius: 5px;
   color: white;
-  
+
 }
 
 

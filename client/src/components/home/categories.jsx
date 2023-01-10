@@ -19,7 +19,7 @@ const Categories=()=>{
       
 
       return (
-        <div  className="Categories page flex flex-col  w-full h-full" >
+        <div  className="Categories p-10 flex flex-col  w-full h-full" >
 
           <div ref={myRef} className="overflow-scroll hide-scroll">
           {
