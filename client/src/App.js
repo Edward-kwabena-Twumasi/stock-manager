@@ -1,5 +1,5 @@
 import './App.css';
-import { useRef,useState } from 'react';
+import { useEffect, useRef,useState } from 'react';
 import NavBar from './components/navbar';
 import AuthScreen from './components/auth/auth';
 import Login from './components/auth/login';
@@ -8,7 +8,9 @@ import Register from './components/auth/register';
 import {
   BrowserRouter as Router,
   Routes,
-  Route
+  Route,
+  Navigate,
+  useNavigate
 } from 'react-router-dom';
 
 
@@ -18,6 +20,7 @@ import Products from './components/home/products';
 import Categories from './components/home/categories';
 import Invoices from './components/home/invoices';
 import Dashboard from './components/home/dashboard';
+import Introduction from './components/introduction';
 
 
 
@@ -29,6 +32,8 @@ import Dashboard from './components/home/dashboard';
 function App() {
   const aboutRef = useRef(null);
   const skillsRef = useRef(null);
+  
+
 
   return (
   
@@ -40,7 +45,8 @@ function App() {
                   <NavBar /> 
                   <div className='content-body h-full mt-[70px]   rounded-lg shadow-xl '>
                     <Routes>
-                      <Route exact path="/" >
+                      <Route exact path="/" element={<Introduction></Introduction>}>
+                       
                       </Route> 
                       <Route exact path="/api/auth"  element={<AuthScreen ref={aboutRef} />}>
                         <Route exact path="login"  element={<Login  />}></Route> 

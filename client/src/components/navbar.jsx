@@ -14,8 +14,8 @@ const NavBar=({onNavChange,index})=>{
   }
   
     return (
-        <div className="nav w-full flex gap-20  lg:p-4 p-2  bg-green-700  mb-0 fixed text-white z-50">
-              <div className='flex justify-start w-1/2'>
+        <div className="nav w-full flex gap-20 justify-between  lg:p-4 p-2  bg-green-700  mb-0 fixed text-white z-50">
+              <div className='flex justify-start '>
                 <h1 className='font-bold self-center'>Stock Manager</h1>
               </div>
               <div className='lg:flex justify-end gap-7 hidden'>

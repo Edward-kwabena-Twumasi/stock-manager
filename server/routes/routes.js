@@ -19,7 +19,18 @@ apiRoutes.route("/").get(function (req, res) {
    
 });
 // This api route fetches users for authentication.
-apiRoutes.route("/login").get(function (req, res) {
+apiRoutes.route("/auth/login").get(function (req, res) {
+  let db_connect = dbo.getDb();
+  db_connect
+    .collection("users")
+    .find({})
+    .toArray(function (err, result) {
+      if (err) throw err;
+      res.json(result);
+    });
+});
+// This api route fetches users for authentication.
+apiRoutes.route("/auth/register").get(function (req, res) {
   let db_connect = dbo.getDb();
   db_connect
     .collection("users")
@@ -30,7 +41,7 @@ apiRoutes.route("/login").get(function (req, res) {
     });
 });
 // This api route fetches data for the dashboard.
-apiRoutes.route("/dashboard").get(function (req, res) {
+apiRoutes.route("/home/dashboard").get(function (req, res) {
   let db_connect = dbo.getDb();
   db_connect
     .collection("dashboard")
@@ -41,7 +52,7 @@ apiRoutes.route("/dashboard").get(function (req, res) {
     });
 });
 // This api route fetches the categories.
-apiRoutes.route("/categories").get(function (req, res) {
+apiRoutes.route("/home/categories").get(function (req, res) {
   let db_connect = dbo.getDb();
   db_connect
     .collection("categories")
@@ -53,7 +64,7 @@ apiRoutes.route("/categories").get(function (req, res) {
 });
 
 // This api route fetches the products.
-apiRoutes.route("/products").get(function (req, res) {
+apiRoutes.route("/home/products").get(function (req, res) {
   let db_connect = dbo.getDb();
   db_connect
     .collection("products")
@@ -65,7 +76,7 @@ apiRoutes.route("/products").get(function (req, res) {
 });
 
 // This api route fetches the invoices.
-apiRoutes.route("/invoices").get(function (req, res) {
+apiRoutes.route("/home/invoices").get(function (req, res) {
   let db_connect = dbo.getDb();
   db_connect
     .collection("invoices")

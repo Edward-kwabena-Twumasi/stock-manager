@@ -5,16 +5,14 @@ const CategoryCard=({image,name,description})=>{
     
     return (
         
-            <div className="card p-4 pt-2 flex flex-col" >
-                <h3 className="font-semibold text-lg m-1 text-white">{name}</h3>
+            <div className="card p-4 pt-2 flex flex-col justify-center h-[150px]  border-green-500 rounded-lg shadow-2xl" >
+                <h3 className="font-semibold text-lg m-1 e">{name}</h3>
                 
-                <section className="description text-white text-lg">
+                <section className="description text-lg">
                 {description}
                 </section>
                 
-                <section className="actions flex gap-7 justify-around  w-4/5 absolute">
-                    <button>All products</button>
-                </section>
+               
             </div>
            
 

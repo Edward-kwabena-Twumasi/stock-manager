@@ -16,9 +16,12 @@ const Products=()=>{
       
 
       return (
-        <div  className="products page flex flex-col  w-full h-full" >
-
-          <div ref={myRef} className="overflow-scroll hide-scroll">
+        <div  className="products p-10 " >
+          <div className="p-3 flex w-full justify-between">
+            <h1 className='font-bold text-xl'>Products</h1>
+            <h1 className="mr-10 font-bold p-2 bg-green-700 text-white rounded-md">Add</h1>
+          </div>
+          <div ref={myRef} className="overflow-scroll hide-scroll grid grid-cols-3  w-full h-full">
             {
               products.map(product=>{
                 return  <ProductCard name={product.name} description={product.description} 
