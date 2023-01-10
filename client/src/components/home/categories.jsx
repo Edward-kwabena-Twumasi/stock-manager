@@ -22,7 +22,7 @@ const Categories=()=>{
 
     useEffect(() => {
       async function getCategories() {
-        const response = await fetch(`http://localhost:500/api/home/categories`);
+        const response = await fetch(`http://localhost:5000/api/home/categories`);
   
         if (!response.ok) {
           const message = `An error occured: ${response.statusText}`;
@@ -45,9 +45,9 @@ const Categories=()=>{
       function ModalDisplay() {
         
             if (showModal===true) {
-              let title = <hi>Add category</hi>
+              let title = <h1>Add category</h1>
               let name= <input className='textfield' type="text" placeholder="category name" ></input>
-             let description= <textarea rows={10} cols="5" className='textfield' type="text" placeholder="Describe category" />
+             let description= <textarea rows={10} cols="5" className='textarea' type="text" placeholder="Describe category" />
               return <Modal Children={[title,name,description]}>
                
               </Modal>

@@ -111,7 +111,7 @@ height: 455px;
 
 
 .description{
-width: 90%;
+width: 95%;
 height: auto;
 padding: 10px;
 color: rgb(233, 138, 23);
@@ -172,6 +172,11 @@ tr{
 .textfield{
   border: 2px solid green;
   height: 60px;
+  border-radius: 5px;
+}
+.textarea{
+  border: 2px solid green;
+  height: 80px;
   border-radius: 5px;
 }
 .formbutton{
