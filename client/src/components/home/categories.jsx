@@ -1,11 +1,21 @@
-import { useRef,useState,useEffect } from 'react';
+import { useRef,useState,useEffect, useCallback } from 'react';
 import 'animate.css';
-import {categories} from "../../data.js"
 import CategoryCard from '../widgets/categorycard';
 import { BiHide } from 'react-icons/bi';
 import Modal from '../widgets/modal.jsx';
 
 
+ const ModalDisplay=({showModal,formRef,onFormSubmit,onFormChange})=> {
+        
+            if (showModal===true) {
+              let title = <h1 key={"title"}>Add category</h1>
+              let name= <input key={"name"} className='textfield' type="text" placeholder="category name" name='category'></input>
+             let description= <textarea key={"desc"} rows={10} cols="5" className='textarea' type="text" placeholder="Describe category" name='description'/>
+              return <Modal Children={[title,name,description]} ref={formRef} onFormSubmit={onFormSubmit} onFormChange={onFormChange}>
+               
+              </Modal>
+            } 
+      }
 
 const Categories=()=>{
     
@@ -13,7 +23,7 @@ const Categories=()=>{
     const [categories, setCategories] = useState([]);
     const [showModal,toggleShowModal]=useState(false)
     const [form,setForm]=useState({
-      "name":"",
+      "category":"",
       "description":""
     })
 
@@ -45,21 +55,10 @@ const Categories=()=>{
       },[query]);
 
       
-      function ModalDisplay() {
-        
-            if (showModal===true) {
-              let title = <h1 key={"title"}>Add category</h1>
-              let name= <input key={"name"} className='textfield' type="text" placeholder="category name" name='category'></input>
-             let description= <textarea key={"desc"} rows={10} cols="5" className='textarea' type="text" placeholder="Describe category" name='description'/>
-              return <Modal Children={[title,name,description]} ref={formRef} onFormSubmit={onFormSubmit} onFormChange={onFormChange}>
-               
-              </Modal>
-            } 
-            console.log(showModal)
-      }
+      
 
       const onFormSubmit= async(e)=>{
-         e.preventDefault();
+        e.preventDefault();
         console.log(formRef.current.querySelectorAll("input")[0].value)
 
         const response=  await fetch(`http://localhost:5000/api/home/categories`, {
@@ -67,23 +66,31 @@ const Categories=()=>{
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({}),
+        body: JSON.stringify(form),
       });
 
         const data=await response.json();
         console.log(data)
       }
-
-      const onFormChange= async(e)=>{
-        e.preventDefault();
-        console.log(e.target.value)
-        
+ 
+      const updateForm=(value)=> {
+         setForm((prev) => {
+        return { ...prev, ...value };
+        });
+        return false;
       }
 
+      const onFormChange=async(e)=>{
+        e.preventDefault();       
+        let fieldNValue={}
+        fieldNValue[e.target.name]=e.target.value
+        updateForm(fieldNValue)
+        console.log(form)     
+      }
+     
       return (
         <div  className="Categories p-10 flex flex-col  w-full h-full" >
-         <ModalDisplay></ModalDisplay>
-          
+          <ModalDisplay showModal={showModal} formRef={formRef} onFormChange={onFormChange} onFormSubmit={onFormSubmit}></ModalDisplay>         
           <div className="p-3 flex w-full justify-between">
             <h1 className='font-bold text-xl'>Categories</h1>
             <h1 className="mr-10 font-bold p-2 bg-green-700 text-white rounded-md" onClick={handleAdd}>Add</h1>
