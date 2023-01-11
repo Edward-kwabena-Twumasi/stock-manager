@@ -7,8 +7,6 @@ import Modal from '../widgets/modal.jsx';
 
 
 
-
-
 const Categories=()=>{
     
     const myRef = useRef(null);

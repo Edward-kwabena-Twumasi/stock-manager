@@ -181,9 +181,18 @@ tr{
 }
 .formbutton{
   background-color: green;
-  height: 60px;
+  height: 50px;
   border-radius: 5px;
   color: white;
+
+}
+.outlinedbutton{
+  background-color: transparent;
+  height: 50px;
+  border-radius: 5px;
+  color: green;
+  font-weight:bold ;
+  border: 2px solid green;
 
 }
 
