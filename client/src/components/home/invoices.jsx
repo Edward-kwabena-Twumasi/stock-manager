@@ -39,12 +39,10 @@ const Invoices=()=>{
         
         if (showModal===true) {
           let title = <h1>Add Product</h1>
-          let name= <input className='textfield' type="text" placeholder="product name" ></input>
-          let stock= <input className='textfield' type="text" placeholder="product stock" ></input>
-          let thresh= <input className='textfield' type="text" placeholder="threshhold" ></input>
-          let category= <input className='textfield' type="text" placeholder="product category" ></input>
+          let name= <input className='textfield' type="text" placeholder="customer name" name='customer'></input>
+          let amount= <input className='textfield' type="text" placeholder="amount" ></input>
          let description= <textarea rows={10} cols="5" className='textarea' type="text" placeholder="Describe product" />
-          return <Modal Children={[title,name,stock,thresh,category,description]}>
+          return <Modal Children={[title,name,amount]}>
            
           </Modal>
         } 

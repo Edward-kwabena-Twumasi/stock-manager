@@ -9,9 +9,14 @@ import Modal from '../widgets/modal.jsx';
 
 const Categories=()=>{
     
-    const myRef = useRef(null);
+    const formRef = useRef(null);
     const [categories, setCategories] = useState([]);
     const [showModal,toggleShowModal]=useState(false)
+    const [form,setForm]=useState({
+      "name":"",
+      "description":""
+    })
+
     const [query, setQuery] = useState("");
 
     const handleAdd=()=>{
@@ -37,20 +42,42 @@ const Categories=()=>{
   
       return;       
       
-      },[]);
+      },[query]);
 
       
       function ModalDisplay() {
         
             if (showModal===true) {
-              let title = <h1>Add category</h1>
-              let name= <input className='textfield' type="text" placeholder="category name" ></input>
-             let description= <textarea rows={10} cols="5" className='textarea' type="text" placeholder="Describe category" />
-              return <Modal Children={[title,name,description]}>
+              let title = <h1 key={"title"}>Add category</h1>
+              let name= <input key={"name"} className='textfield' type="text" placeholder="category name" name='category'></input>
+             let description= <textarea key={"desc"} rows={10} cols="5" className='textarea' type="text" placeholder="Describe category" name='description'/>
+              return <Modal Children={[title,name,description]} ref={formRef} onFormSubmit={onFormSubmit} onFormChange={onFormChange}>
                
               </Modal>
             } 
             console.log(showModal)
+      }
+
+      const onFormSubmit= async(e)=>{
+         e.preventDefault();
+        console.log(formRef.current.querySelectorAll("input")[0].value)
+
+        const response=  await fetch(`http://localhost:5000/api/home/categories`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({}),
+      });
+
+        const data=await response.json();
+        console.log(data)
+      }
+
+      const onFormChange= async(e)=>{
+        e.preventDefault();
+        console.log(e.target.value)
+        
       }
 
       return (
@@ -62,7 +89,7 @@ const Categories=()=>{
             <h1 className="mr-10 font-bold p-2 bg-green-700 text-white rounded-md" onClick={handleAdd}>Add</h1>
           </div>
           
-          <div ref={myRef} className= "overflow-hidden hide-scroll grid grid-cols-3 gap-6 w-full">
+          <div  className= "overflow-hidden hide-scroll grid grid-cols-3 gap-6 w-full">
           {
              categories.length>0? categories.map(category=>{
                 return  <CategoryCard name={category.name} description={category.description} ></CategoryCard>

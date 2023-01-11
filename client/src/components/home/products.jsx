@@ -65,11 +65,11 @@ const Products=()=>{
         
             if (showModal===true) {
               let title = <h1>Add Product</h1>
-              let name= <input className='textfield' type="text" placeholder="product name" ></input>
-              let stock= <input className='textfield' type="text" placeholder="product stock" ></input>
-              let thresh= <input className='textfield' type="text" placeholder="threshhold" ></input>
-              let category= <input className='textfield' type="text" placeholder="product category" ></input>
-             let description= <textarea rows={10} cols="5" className='textarea' type="text" placeholder="Describe product" />
+              let name= <input className='textfield' type="text" placeholder="product name" name='product' ></input>
+              let stock= <input className='textfield' type="text" placeholder="product stock" name='stock'></input>
+              let thresh= <input className='textfield' type="text" placeholder="threshhold" name='threshhold'></input>
+              let category= <input className='textfield' type="text" placeholder="product category" name='category'></input>
+             let description= <textarea rows={10} cols="5" className='textarea' type="text" placeholder="Describe product" name='description'/>
               return <Modal Children={[title,name,stock,thresh,category,description]}>
                
               </Modal>

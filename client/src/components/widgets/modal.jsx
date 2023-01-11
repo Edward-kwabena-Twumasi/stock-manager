@@ -1,12 +1,12 @@
-import { Children } from "react"
+import { forwardRef } from "react"
 
-const Modal=({Children,onFormSubmit,onFormChange})=>{
+const Modal=forwardRef((props,ref)=>{
     return (
-        <div className="modal ">
-            <form className="flex flex-col shadow-2xl justify-center font-bold content-center p-5 gap-3" onSubmit={onFormSubmit} onChange={onFormChange}>
-            {Children}
+        <div className="modal" >
+            <form ref={ref}  className="flex flex-col shadow-2xl justify-center font-bold content-center p-5 gap-3" onSubmit={props.onFormSubmit} onChange={props.onFormChange}>
+            {props.Children}
             <div className="flex justify-start gap-5 w-full">
-                 <button  className="formbutton w-1/3">Submit</button>
+                 <input  className="formbutton w-1/3" type={"submit"} name="Submit"></input>
                  <button  className="outlinedbutton w-1/3">Cancel</button>
             </div>
            
@@ -14,5 +14,5 @@ const Modal=({Children,onFormSubmit,onFormChange})=>{
         
         </div>
     )
-}
+})
 export default Modal
