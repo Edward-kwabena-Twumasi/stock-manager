@@ -72,21 +72,22 @@ apiRoutes.route("/home/dashboard").get(function (req, res) {
 });
 // This api route fetches the collection [categories|invoices|products].
 apiRoutes.route("/home/:collection").get(function (req, res) {
-  let collectionString=req.params.collection;
- 
+  
   let db_connect = dbo.getDb();
+  let collectionString=req.params.collection;
   db_connect
     .collection(collectionString)
     .find({})
     .toArray(function (err, result) {
       if (err) throw err;
+      console.log(result)
       res.json(result);
     });
 });
 
 
 // This section will help you get a single document by id
-apiRoutes.route("/:collection/:id").get(function (req, res) {
+apiRoutes.route("/home/:collection/:id").get(function (req, res) {
   let db_connect = dbo.getDb();
   let collectionString=req.params.collection;
   let myquery = { _id: ObjectId( req.params.id )};
@@ -103,12 +104,11 @@ apiRoutes.route("/home/:collection").post(function (req, res) {
   let db_connect = dbo.getDb();
   let collectionString=req.params.collection;
 
-  const date=new Date();
-  console.log(date)
+  
   let data = req.body
-  db_connect.collection(collectionString).insertOne(data, function (err, res) {
+  db_connect.collection(collectionString).insertOne(data, function (err, msg) {
     if (err) throw err;
-    res.json(res);
+    res.json(msg);
   });
 });
 
@@ -142,10 +142,10 @@ apiRoutes.route("/:collection/:id").delete((req, res) => {
   let db_connect = dbo.getDb();
   let collectionString=req.params.collection;
   let myquery = { _id: ObjectId( req.params.id )};
-  db_connect.collection(collectionString).deleteOne(myquery, function (err, obj) {
+  db_connect.collection(collectionString).deleteOne(myquery, function (err, msg) {
     if (err) throw err;
     console.log("document deleted succesfully");
-    res.json(obj);
+    res.json(msg);
   });
 });
 

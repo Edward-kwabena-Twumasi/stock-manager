@@ -2,7 +2,6 @@ import { NavLink,Outlet } from "react-router-dom"
 import {FaObjectGroup} from "react-icons/fa"
 import {GoPerson} from "react-icons/go"
 import {GoTasklist} from "react-icons/go"
-import {FaPhone} from "react-icons/fa"
 import { BiMoney, BiSpreadsheet } from "react-icons/bi"
 
 const Home=()=>{

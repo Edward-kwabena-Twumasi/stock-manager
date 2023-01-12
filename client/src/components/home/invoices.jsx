@@ -1,11 +1,25 @@
-import { useRef,useState,useEffect } from 'react';
+import { useState,useEffect } from 'react';
 import Modal from '../widgets/modal';
 // import {invoices} from "../../data.js"
 
+const AddDocument=({showModal})=> {
+        let dataModel={
+          "customer":"",
+          "amount":0       
+        }
+        if (showModal===true) {
+          let title = <h1>Add Invoice</h1>
+          let name= <input className='textfield' type="text" placeholder="customer name" name='customer'></input>
+          let amount= <input className='textfield' type="number" placeholder="amount" name='amount'></input>
+          return <Modal formElements={[title,name,amount]} dataModel={dataModel} path="invoices">
+           
+          </Modal>
+        } 
+       
+       }
 
 const Invoices=()=>{
     
-    const myRef = useRef(null);
     const [invoices, setInvoices] = useState([]);
     const [showModal,toggleShowModal]=useState(false)
     const [query, setQuery] = useState("");
@@ -20,13 +34,13 @@ const Invoices=()=>{
         
         if (!response.ok) {
           const message = `An error occured: ${response.statusText}`;
-          window.alert(message);
+          console.log(message)
           return <h1>Cant fetch data. Check network connection</h1>;
         }
   
         const fetchedInvoices = await response.json();
 
-         setInvoices(fetchedInvoices.filter(category=>category.name.toLowerCase().includes(query)));
+         setInvoices(fetchedInvoices.filter(invoice=>invoice.customer.toLowerCase().includes(query)));
       }
   
       getInvoices();
@@ -35,47 +49,38 @@ const Invoices=()=>{
       
       },[query]);
 
-      function ModalDisplay() {
-        
-        if (showModal===true) {
-          let title = <h1>Add Product</h1>
-          let name= <input className='textfield' type="text" placeholder="customer name" name='customer'></input>
-          let amount= <input className='textfield' type="text" placeholder="amount" ></input>
-         let description= <textarea rows={10} cols="5" className='textarea' type="text" placeholder="Describe product" />
-          return <Modal Children={[title,name,amount]}>
-           
-          </Modal>
-        } 
-        console.log(showModal)
-  }
-
+      
 
       return (
         <div  className="invoices m-10 rounded-xl p-5 shadow-xl w-full h-full" >
-          <ModalDisplay></ModalDisplay>
+           <AddDocument showModal={showModal}></AddDocument>
            <div className="p-3 flex w-full justify-between">
             <h1 className='font-bold text-xl'>Invoices</h1>
             <h1 className="mr-10 font-bold p-2 bg-green-700 text-white rounded-md" onClick={handleAdd}>Add</h1>
           </div>
           <table className='w-full'>
-            <tr>
-              <th>Id</th>
-              <th>Customer</th>
-              <th>Date</th>
-              <th>Amount</th>
-            </tr>
-            {
-              invoices.map(product=>{
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Customer</th>
+                <th>Date</th>
+                <th>Amount</th>
+              </tr>
+              
+            </thead>
+            <tbody>
+              {
+             invoices.length>0? invoices.map(invoice=>{
                 return <tr>
                   <td>12345</td>
                   <td>Edward</td>
                   <td>10th Jan,2023</td>
                   <td>200</td>
-                  </tr>
-
-                
-              })
+                  </tr>                
+              }): <h1>Add invoices to view them</h1>
             }
+            </tbody>
+            
            
          
        </table>
