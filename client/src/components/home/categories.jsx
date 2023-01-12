@@ -66,7 +66,7 @@ const Categories=()=>{
           <div  className= "overflow-hidden hide-scroll justify-center content-center grid grid-cols-3 gap-6 w-full">
           {
              categories.length>0? categories.map(category=>{
-                return  <CategoryCard name={category.name} description={category.description} ></CategoryCard>
+                return  <CategoryCard name={category.category} description={category.description} ></CategoryCard>
               }):  <h1>Add categories to view them</h1>
             }
           </div>

@@ -42,32 +42,33 @@ apiRoutes.route("/auth/register").get(function (req, res) {
 });
 
 // This api route fetches data for the dashboard.
-apiRoutes.route("/home/dashboard").get(function (req, res) {
+apiRoutes.route("/dashboard").get(async function (req, res) {
   let db_connect = dbo.getDb();
 
-  let dashboardData={"categories":[],"products":[],"invoices":[]}
+  let dashboardData={}
 
-  db_connect
+ await db_connect
     .collection("categories")
     .find({})
     .toArray(function (err, result) {
       if (err) throw err;
-     dashboardData["categories"]=result
+     dashboardData["categories"]=JSON.stringify(result)
     });
-    db_connect
+  await  db_connect
     .collection("products")
     .find({})
     .toArray(function (err, result) {
       if (err) throw err;
      dashboardData["products"]=result
     });
-    db_connect
+  await  db_connect
     .collection("invoices")
     .find({})
     .toArray(function (err, result) {
       if (err) throw err;
      dashboardData["invoices"]=result
     });
+    console.log(dashboardData)
     res.json(dashboardData)
 });
 // This api route fetches the collection [categories|invoices|products].
@@ -75,7 +76,9 @@ apiRoutes.route("/home/:collection").get(function (req, res) {
   
   let db_connect = dbo.getDb();
   let collectionString=req.params.collection;
-  db_connect
+  if(collectionString!=="dashboard"){
+   
+    db_connect
     .collection(collectionString)
     .find({})
     .toArray(function (err, result) {
@@ -83,6 +86,7 @@ apiRoutes.route("/home/:collection").get(function (req, res) {
       console.log(result)
       res.json(result);
     });
+    }
 });
 
 

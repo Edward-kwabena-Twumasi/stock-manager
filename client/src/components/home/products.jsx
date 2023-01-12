@@ -61,26 +61,27 @@ const Products=()=>{
       },[query]);
 
     useEffect(() => {
-     if(categories===[]) {
+    
       async function getCategories() {
         const response = await fetch(`http://localhost:5000/api/home/categories`);
         
         if (!response.ok) {
           const message = `An error occured: ${response.statusText}`;
-          window.alert(message);
+        
           return <h1>Cant fetch data. Check network connection</h1>;
         }
   
         const fetchedCategories = await response.json();
 
          setCategories(fetchedCategories);
+         console.log(fetchedCategories)
       }
   
       getCategories();
   
-      return;  }     
+      return;     
       
-      },[products,categories]);
+      },[]);
 
       
       
@@ -96,7 +97,7 @@ const Products=()=>{
           <div ref={myRef} className="overflow-scroll hide-scroll grid grid-cols-3  w-full h-full">
             {
              products.length>0? products.map(product=>{
-                return  <ProductCard name={product.name} description={product.description} 
+                return  <ProductCard name={product.product} description={product.description} 
                 category={product.category} threshold={product.threshhold} stock={product.stock}></ProductCard>
               }):  <h1>Add products to view them</h1>
             }
