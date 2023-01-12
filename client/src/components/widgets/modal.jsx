@@ -3,6 +3,7 @@ import { useState } from "react"
 const Modal=(props)=>{
 
     let dataModel=props.dataModel;
+    
     const [formData,setFormData]=useState({...dataModel})
 
        const onFormSubmit= async(e)=>{
@@ -16,7 +17,7 @@ const Modal=(props)=>{
       });
 
         const data=await response.json();
-        console.log(data)
+        props.dismissModal(data)
       }
 
       const updateFormData=(value)=> {
@@ -29,7 +30,7 @@ const Modal=(props)=>{
         e.preventDefault();       
         let activeInputData={}
         activeInputData[e.target.name]=e.target.value
-        
+
         updateFormData(activeInputData)
         console.log(formData)
       }

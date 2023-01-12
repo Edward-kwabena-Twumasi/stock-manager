@@ -41,36 +41,7 @@ apiRoutes.route("/auth/register").get(function (req, res) {
     });
 });
 
-// This api route fetches data for the dashboard.
-apiRoutes.route("/dashboard").get(async function (req, res) {
-  let db_connect = dbo.getDb();
 
-  let dashboardData={}
-
- await db_connect
-    .collection("categories")
-    .find({})
-    .toArray(function (err, result) {
-      if (err) throw err;
-     dashboardData["categories"]=JSON.stringify(result)
-    });
-  await  db_connect
-    .collection("products")
-    .find({})
-    .toArray(function (err, result) {
-      if (err) throw err;
-     dashboardData["products"]=result
-    });
-  await  db_connect
-    .collection("invoices")
-    .find({})
-    .toArray(function (err, result) {
-      if (err) throw err;
-     dashboardData["invoices"]=result
-    });
-    console.log(dashboardData)
-    res.json(dashboardData)
-});
 // This api route fetches the collection [categories|invoices|products].
 apiRoutes.route("/home/:collection").get(function (req, res) {
   
@@ -107,9 +78,10 @@ apiRoutes.route("/home/:collection/:id").get(function (req, res) {
 apiRoutes.route("/home/:collection").post(function (req, res) {
   let db_connect = dbo.getDb();
   let collectionString=req.params.collection;
-
+  let created_at=new Date();
   
   let data = req.body
+  data["created_at"]=created_at.toLocaleString()
   db_connect.collection(collectionString).insertOne(data, function (err, msg) {
     if (err) throw err;
     res.json(msg);
@@ -142,7 +114,6 @@ apiRoutes.route("/:collection/:id").put(function (req, res) {
 
 // This section will help you delete a document from collection
 apiRoutes.route("/:collection/:id").delete((req, res) => {
-
   let db_connect = dbo.getDb();
   let collectionString=req.params.collection;
   let myquery = { _id: ObjectId( req.params.id )};

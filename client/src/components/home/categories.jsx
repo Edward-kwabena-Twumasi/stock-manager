@@ -4,7 +4,7 @@ import CategoryCard from '../widgets/categorycard';
 import Modal from '../widgets/modal.jsx';
 
 
- const AddDocument=({showModal})=> {
+ const AddDocument=({showModal,dismissModal})=> {
         
             if (showModal===true) {
               let dataModel={
@@ -14,7 +14,7 @@ import Modal from '../widgets/modal.jsx';
               let title = <h1 key={"title"}>Add category</h1>
               let name= <input key={"name"} className='textfield' type="text" name='category' placeholder="category name"></input>
               let description= <textarea key={"desc"} rows={10} cols="5" className='textarea' type="text"  name='description' placeholder="Describe category"/>
-              return <Modal formElements={[title,name,description]} dataModel={dataModel} path="categories">
+              return <Modal formElements={[title,name,description]} dataModel={dataModel} path="categories" dismissModal={dismissModal}>
                
               </Modal>
             } 
@@ -29,6 +29,11 @@ const Categories=()=>{
     
     const handleAdd=()=>{
       toggleShowModal(!showModal)
+    }
+
+    const dismissModal=(data)=>{
+      toggleShowModal(!showModal)
+      window.alert("Done adding data:"+data)
     }
 
     useEffect(() => {
@@ -51,13 +56,13 @@ const Categories=()=>{
   
       return;       
       
-      },[query]);
+      },[query,showModal]);
 
       
       
       return (
         <div  className="Categories p-10 flex flex-col  w-full h-full" >
-          <AddDocument showModal={showModal}></AddDocument>         
+          <AddDocument showModal={showModal} dismissModal={dismissModal}></AddDocument>         
           <div className="p-3 flex w-full justify-between">
             <h1 className='font-bold text-xl'>Categories</h1>
             <h1 className="mr-10 font-bold p-2 bg-green-700 text-white rounded-md" onClick={handleAdd}>Add</h1>

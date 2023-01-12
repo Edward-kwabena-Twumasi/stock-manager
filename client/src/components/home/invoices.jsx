@@ -72,10 +72,10 @@ const Invoices=()=>{
               {
              invoices.length>0? invoices.map(invoice=>{
                 return <tr>
-                  <td>12345</td>
-                  <td>Edward</td>
+                  <td>{invoice._id}</td>
+                  <td>{invoice.customer}</td>
                   <td>10th Jan,2023</td>
-                  <td>200</td>
+                  <td>{invoice.amount}</td>
                   </tr>                
               }): <h1>Add invoices to view them</h1>
             }
