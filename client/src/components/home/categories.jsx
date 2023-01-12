@@ -2,6 +2,7 @@ import {useState,useEffect} from 'react';
 import 'animate.css';
 import CategoryCard from '../widgets/categorycard';
 import Modal from '../widgets/modal.jsx';
+import { useNavigate } from 'react-router-dom';
 
 
  const AddDocument=({showModal,dismissModal})=> {
@@ -22,7 +23,7 @@ import Modal from '../widgets/modal.jsx';
 
 const Categories=()=>{
     
-    
+    const navigate=useNavigate()
     const [showModal,toggleShowModal]=useState(false)
     const [query, setQuery] = useState("");
     const [categories, setCategories] = useState([]);
@@ -35,7 +36,9 @@ const Categories=()=>{
       toggleShowModal(!showModal)
       window.alert("Done adding data:"+data)
     }
-
+    const refreshAfterDelete=()=>{
+      navigate(0)
+    }
     useEffect(() => {
       async function getCategories() {
         const response = await fetch(`http://localhost:5000/api/home/categories`);
@@ -62,7 +65,8 @@ const Categories=()=>{
       
       return (
         <div  className="Categories p-10 flex flex-col  w-full h-full" >
-          <AddDocument showModal={showModal} dismissModal={dismissModal}></AddDocument>         
+          <AddDocument showModal={showModal} dismissModal={dismissModal}></AddDocument>  
+
           <div className="p-3 flex w-full justify-between">
             <h1 className='font-bold text-xl'>Categories</h1>
             <h1 className="mr-10 font-bold p-2 bg-green-700 text-white rounded-md" onClick={handleAdd}>Add</h1>
@@ -71,7 +75,8 @@ const Categories=()=>{
           <div  className= "overflow-hidden hide-scroll justify-center content-center grid grid-cols-3 gap-6 w-full">
           {
              categories.length>0? categories.map(category=>{
-                return  <CategoryCard name={category.category} description={category.description} ></CategoryCard>
+                return  <CategoryCard name={category.category} description={category.description} 
+                id={category._id} refreshAfterDelete={refreshAfterDelete}></CategoryCard>
               }):  <h1>Add categories to view them</h1>
             }
           </div>

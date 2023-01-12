@@ -186,6 +186,12 @@ tr{
   color: white;
 
 }
+.actionbutton{
+  padding: 5px;
+  background-color: black;
+  color: white;
+  border: 3px;
+}
 .outlinedbutton{
   background-color: transparent;
   height: 50px;

@@ -2,7 +2,7 @@ import { useState,useEffect } from 'react';
 import Modal from '../widgets/modal';
 // import {invoices} from "../../data.js"
 
-const AddDocument=({showModal})=> {
+const AddDocument=({showModal,dismissModal})=> {
         let dataModel={
           "customer":"",
           "amount":0       
@@ -11,7 +11,7 @@ const AddDocument=({showModal})=> {
           let title = <h1>Add Invoice</h1>
           let name= <input className='textfield' type="text" placeholder="customer name" name='customer'></input>
           let amount= <input className='textfield' type="number" placeholder="amount" name='amount'></input>
-          return <Modal formElements={[title,name,amount]} dataModel={dataModel} path="invoices">
+          return <Modal formElements={[title,name,amount]} dataModel={dataModel} path="invoices" dismissModal={dismissModal}>
            
           </Modal>
         } 
@@ -27,7 +27,10 @@ const Invoices=()=>{
     const handleAdd=()=>{
       toggleShowModal(!showModal)
     }
-
+    const dismissModal=(data)=>{
+      toggleShowModal(!showModal)
+      window.alert("Done adding data:"+data)
+    }
     useEffect(() => {
       async function getInvoices() {
         const response = await fetch(`http://localhost:5000/api/home/invoices`);
@@ -53,7 +56,7 @@ const Invoices=()=>{
 
       return (
         <div  className="invoices m-10 rounded-xl p-5 shadow-xl w-full h-full" >
-           <AddDocument showModal={showModal}></AddDocument>
+           <AddDocument showModal={showModal} dismissModal={dismissModal}></AddDocument>
            <div className="p-3 flex w-full justify-between">
             <h1 className='font-bold text-xl'>Invoices</h1>
             <h1 className="mr-10 font-bold p-2 bg-green-700 text-white rounded-md" onClick={handleAdd}>Add</h1>

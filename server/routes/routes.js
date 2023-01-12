@@ -117,6 +117,7 @@ apiRoutes.route("/:collection/:id").delete((req, res) => {
   let db_connect = dbo.getDb();
   let collectionString=req.params.collection;
   let myquery = { _id: ObjectId( req.params.id )};
+  console.log("Deleting document with id :"+ myquery._id)
   db_connect.collection(collectionString).deleteOne(myquery, function (err, msg) {
     if (err) throw err;
     console.log("document deleted succesfully");
